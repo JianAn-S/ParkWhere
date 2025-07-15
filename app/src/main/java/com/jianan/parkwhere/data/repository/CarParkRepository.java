@@ -22,9 +22,9 @@ import com.jianan.parkwhere.data.local.CarParkDao;
 import com.jianan.parkwhere.data.local.CarParkDatabase;
 import com.jianan.parkwhere.data.remote.CarParkApiClient;
 import com.jianan.parkwhere.data.remote.CarParkApiService;
-import com.jianan.parkwhere.model.CarParkApiData;
-import com.jianan.parkwhere.model.CarParkApiItem;
-import com.jianan.parkwhere.model.CarParkApiResponse;
+import com.jianan.parkwhere.data.model.CarParkApiData;
+import com.jianan.parkwhere.data.model.CarParkApiItem;
+import com.jianan.parkwhere.data.model.CarParkApiResponse;
 
 public class CarParkRepository {
     private final CarParkApiService apiService;

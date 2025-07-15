@@ -1,15 +1,22 @@
+# Ignore project/module files that are auto-generated
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
+
+# Ignore build/Gradle outputs
 .cxx
+.externalNativeBuild
+.gradle
+build
+captures
 local.properties
+
+# Ignore user-specific or volatile IDE files in .idea
+.idea/assetWizardSettings.xml
+.idea/caches
+.idea/deploymentTargetDropDown.xml
+.idea/libraries
+.idea/modules.xml
+.idea/navEditor.xml
+.idea/workspace.xml
+
+# OS/IDE
+.DS_Store

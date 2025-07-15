@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Park Where</string>
+    <!--  Titles for bottom navigation bar items.  -->
+    <string name="title_map_view">Map</string>
+    <string name="title_list_view">List</string>
+    <string name="title_bookmarks">Bookmarks</string>
+    <string name="title_settings">Settings</string>
 </resources>

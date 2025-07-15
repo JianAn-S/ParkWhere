@@ -1,36 +1,13 @@
 package com.jianan.parkwhere.ui.splash;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
-import androidx.lifecycle.MutableLiveData;
-import androidx.room.Room;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import com.jianan.parkwhere.R;
-import com.jianan.parkwhere.data.local.CarPark;
-import com.jianan.parkwhere.data.local.CarParkDao;
-import com.jianan.parkwhere.data.local.CarParkDatabase;
-import com.jianan.parkwhere.data.remote.CarParkApiClient;
-import com.jianan.parkwhere.data.remote.CarParkApiService;
 import com.jianan.parkwhere.data.repository.CarParkRepository;
-import com.jianan.parkwhere.model.CarParkApiData;
-import com.opencsv.CSVReader;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executors;
+import com.jianan.parkwhere.data.model.CarParkApiData;
 
 public class SplashActivity extends AppCompatActivity {
     private static final String TAG = "SplashActivity";

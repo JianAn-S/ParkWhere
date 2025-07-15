@@ -10,12 +10,29 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+/**
+ * Singleton Room database for storing {@link CarPark} entities.
+ *
+ * <p>This database ensures only one instance exists throughout the application's
+ * lifecycle. On fresh installation, the database is pre-populated from the bundled
+ * {@code carpark.db} asset and persists between application restarts.
+ * </p>
+ *
+ * <p>The database provides an access point to the {@link CarParkDao}.
+ * </p>
+ */
 @Database(entities = {CarPark.class}, version = 1)
 public abstract class CarParkDatabase extends RoomDatabase {
     public abstract CarParkDao carParkDao();
     private static final String DB_NAME = "carpark.db";
     private static volatile CarParkDatabase INSTANCE;
 
+    /**
+     * Returns the singleton instance of {@link CarParkDatabase}.
+     *
+     * @param context the application context
+     * @return the singleton {@link CarParkDatabase} instance
+     */
     public static CarParkDatabase getDatabase(Context context){
         if  (INSTANCE == null){
             // Synchronised prevents race conditions in multi-threaded environments by ensuring only one thread can create the INSTANCE at any point in time

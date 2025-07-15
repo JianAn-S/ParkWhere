@@ -1,4 +1,4 @@
-package com.jianan.parkwhere.model;
+package com.jianan.parkwhere.data.model;
 
 import com.google.gson.annotations.SerializedName;
 

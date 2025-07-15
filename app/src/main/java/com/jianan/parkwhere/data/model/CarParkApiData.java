@@ -1,4 +1,4 @@
-package com.jianan.parkwhere.model;
+package com.jianan.parkwhere.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,8 +6,10 @@ import java.util.List;
 
 /**
  * Represents a list of individual car park data from the API response.
- * It consists the car park information, number and last update time
+ *
+ * <p> It consists the car park information, number and last update time
  * (for the specific car park).
+ * </p>
  */
 public class CarParkApiData {
     @SerializedName("carpark_number")

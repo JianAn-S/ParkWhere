@@ -1,4 +1,4 @@
-package com.jianan.parkwhere.ui.splash;
+package com.jianan.parkwhere.ui.map;
 
 import androidx.lifecycle.ViewModel;
 
