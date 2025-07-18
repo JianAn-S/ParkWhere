@@ -6,16 +6,16 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import com.jianan.parkwhere.data.local.CarPark;
 import com.jianan.parkwhere.data.local.CarParkDao;
@@ -32,16 +32,39 @@ public class CarParkRepository {
     private final Executor executor = Executors.newSingleThreadExecutor();
     private final MutableLiveData<Map<String, CarParkApiData>> carParkApiLookupLive = new MutableLiveData<>(new HashMap<>()); // In-memory lookup table where the key is the car park number (String) and the value is CarParkApiData
     private static final String TAG = "CarParkRepository";
+    private static volatile CarParkRepository instance;
 
     public CarParkRepository(Context context) {
         // Obtain the Retrofit service instance
         this.apiService = CarParkApiClient.getService();
 
         // Use ApplicationContext (which ties to the app lifecycle) instead of Context to avoid leaking references tied to short-lived components like activities
-        this.carParkDao = CarParkDatabase.getDatabase(context.getApplicationContext()).carParkDao();
+        // getDatabase will obtain the application context, hence it is fine to provide context here
+        this.carParkDao = CarParkDatabase.getDatabase(context).carParkDao();
     }
 
-    // API
+    public static CarParkRepository getCarParkRepo(Context context) {
+        if (instance == null) {
+            synchronized (CarParkRepository.class) {
+                if (instance == null) {
+                    instance = new CarParkRepository(context.getApplicationContext());
+                }
+            }
+        }
+        return instance;
+    }
+
+    // -------------------------
+    // API Methods
+    // -------------------------
+
+    /**
+     * Triggers an asynchronous fetch of the latest car park availability from the remote API.
+     * <p> On a successful HTTP response, the {@link #carParkApiLookupLive} LiveData map will be
+     * updated so that all observers receive the new data.
+     * If there is a failure or an empty result, an error will be logged.
+     * </p>
+     */
     public void fetchApi() {
         apiService.fetchCarParkAvailability().enqueue(new Callback<CarParkApiResponse>() {
             @Override
@@ -75,12 +98,23 @@ public class CarParkRepository {
     }
 
     /**
+     * Returns a LiveData wrapping the current in‑memory map of car park availability with car park
+     * number being the unique key.
+     *
+     * @return LiveData whose value is a Map<String, CarParkApiData> of the latest API data
+     */
+    public LiveData<Map<String, CarParkApiData>> getCarParkApiLookupLive() {
+        return carParkApiLookupLive;
+    }
+
+    /**
      * Retrieves the latest API data for the specified car park ID from the LiveData map.
-     * <p>
-     * Uses {@code getValue()}, a method provided by LiveData, to access the current data map.
+     *
+     * <p> Uses {@code getValue()}, a method provided by LiveData, to access the current data map.
      * Example:
      * CarParkApiData data = getCarParkDataForId("BE28");
      * String lots = data.getCarParkInfo().get(0).getLotsAvailable();
+     * </p>
      *
      * @param   carParkId the car park number (e.g. "BE28")
      * @return  CarParkApiData for the specified ID, or null if not found
@@ -92,7 +126,9 @@ public class CarParkRepository {
         }
         return null;
     }
-
+    // -------------------------
+    // DB Methods
+    // -------------------------
     /**
      * Asynchronously fetches a {@link CarPark} entity by its car park number using a background thread.
      * <p>
@@ -103,14 +139,10 @@ public class CarParkRepository {
      * @param number    the car park number to query (e.g., "BE28")
      * @param callback  a {@link Consumer} that will be called with the resulting {@link CarPark}, or null if not found
      */
-    public void fetchCarParkByNumber(String number, Consumer<CarPark> callback) {
+    public void getCarParkByNumber(String number, Consumer<CarPark> callback) {
         executor.execute(() -> {
             CarPark cp = carParkDao.getCarParkByNumber(number);
             callback.accept(cp);
         });
-    }
-
-    public LiveData<Map<String, CarParkApiData>> getCarParkApiLookupLive() {
-        return carParkApiLookupLive;
     }
 }

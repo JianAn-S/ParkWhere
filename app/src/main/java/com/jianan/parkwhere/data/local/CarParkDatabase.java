@@ -10,6 +10,8 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.jianan.parkwhere.data.preferences.SettingsManager;
+
 /**
  * Singleton Room database for storing {@link CarPark} entities.
  *
@@ -25,7 +27,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 public abstract class CarParkDatabase extends RoomDatabase {
     public abstract CarParkDao carParkDao();
     private static final String DB_NAME = "carpark.db";
-    private static volatile CarParkDatabase INSTANCE;
+    private static volatile CarParkDatabase instance;
 
     /**
      * Returns the singleton instance of {@link CarParkDatabase}.
@@ -34,15 +36,20 @@ public abstract class CarParkDatabase extends RoomDatabase {
      * @return the singleton {@link CarParkDatabase} instance
      */
     public static CarParkDatabase getDatabase(Context context){
-        if  (INSTANCE == null){
+        if  (instance == null){
             // Synchronised prevents race conditions in multi-threaded environments by ensuring only one thread can create the INSTANCE at any point in time
             synchronized (CarParkDatabase.class) {
-                if (INSTANCE == null) {
+                if (instance == null) {
 
                     // Room database persist between application restarts after it is created from the fresh installation
                     // This check ensures that createFromAsset() is called only if the DB does not exist avoiding unnecessary access to the asset directory which may leak resources
-                    SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("park_where_preferences", Context.MODE_PRIVATE);
-                    boolean isFirstRun = prefs.getBoolean("fresh_install", true);
+
+                    Context appContext = context.getApplicationContext();
+                    SettingsManager settingsManager = new SettingsManager(appContext);
+
+                    // Old code, delete after the new is integrated properly
+                    // SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("park_where_preferences", Context.MODE_PRIVATE);
+                    // boolean isFirstRun = prefs.getBoolean("fresh_install", true);
 
                     RoomDatabase.Builder<CarParkDatabase> builder = Room.databaseBuilder(
                             context.getApplicationContext(),
@@ -51,21 +58,15 @@ public abstract class CarParkDatabase extends RoomDatabase {
                     );
 
                     // Only use createFromAsset() if this is the first time the application is run
-                    if (isFirstRun) {
+                    if (!settingsManager.isDatabaseInitialised()) {
                         builder = builder.createFromAsset(DB_NAME);
 
                         // Mark database as initialised after fresh installation
-                        prefs.edit().putBoolean("fresh_install", false).apply();
+                        settingsManager.markDatabaseInitialised();
                     }
 
-                    INSTANCE = builder
+                    instance = builder
                             .addCallback(new Callback() {
-                                @Override
-                                public void onCreate(@NonNull SupportSQLiteDatabase db) {
-                                    super.onCreate(db);
-                                    Log.d("CarParkDatabase", "Database has been created.");
-                                }
-
                                 @Override
                                 public void onOpen(@NonNull SupportSQLiteDatabase db) {
                                     super.onOpen(db);
@@ -76,6 +77,6 @@ public abstract class CarParkDatabase extends RoomDatabase {
                 }
             }
         }
-        return INSTANCE;
+        return instance;
     }
 }
