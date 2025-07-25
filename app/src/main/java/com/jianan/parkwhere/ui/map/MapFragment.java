@@ -1,7 +1,14 @@
 package com.jianan.parkwhere.ui.map;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,20 +23,41 @@ import android.view.ViewGroup;
 import com.jianan.parkwhere.R;
 import com.jianan.parkwhere.data.model.CarParkApiData;
 import com.jianan.parkwhere.databinding.FragmentMapBinding;
+import com.jianan.parkwhere.util.PermissionUtils;
 
 public class MapFragment extends Fragment {
     private static final String TAG = "MapFragment";
+    private static final String[] LOCATION_PERMISSIONS = {
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+    };
     private FragmentMapBinding binding;
     private MapViewModel mapViewModel;
 
-    public static MapFragment newInstance() {
-        return new MapFragment();
-    }
+    // Creating a method for location permission launcher
+    private final ActivityResultLauncher<String[]> locationPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
+                    permissions -> {
+                boolean hasLocationPermission = permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false)
+                        || permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false);
+
+                // Update mapViewModel's Livedata for MapFragment UI
+                mapViewModel.setLocationPermissionLiveDataStatus(hasLocationPermission);
+
+                if (hasLocationPermission) {
+                    startLocationUpdates();
+                }
+            });
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = FragmentMapBinding.inflate(inflater, container, false);
+        // For data binding, DataBindingUtil is used instead of FragmentMapBinding
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_map , container, false);
+
+        // Lifecycle onwer is set for LiveData in XML
+        binding.setLifecycleOwner(this);
+
         return binding.getRoot();
     }
 
@@ -40,6 +68,72 @@ public class MapFragment extends Fragment {
         // Initialise ViewModel using AndroidViewModel (application context is required by repository instance)
         mapViewModel = new ViewModelProvider(requireActivity()).get(MapViewModel.class);
 
+        // Bind MapViewModel to XML
+        binding.setViewModel(mapViewModel);
+
+        // Bind the button to the on click listener
+        binding.buttonRecenterLocation.setOnClickListener(v -> handleLocationButtonClick());
+
+        // Test Car Park API & DB implementation
+        carParkApiAndDbTest();
+
+        // If first launch, call requestLocationPermission
+        // If location permission is already given (whereby the application is not running for the first time), start location update
+        if (mapViewModel.getFirstLaunch()) {
+            Log.d(TAG, "First launch - requesting location permission");
+            requestLocationPermission();
+            mapViewModel.setFirstLaunch();
+        } else if (mapViewModel.hasLocationPermission()) {
+            Log.d(TAG, "Permission already granted - starting location updates");
+            startLocationUpdates();
+        } else { // TESTING, to delete later
+            Log.d(TAG, "No location permission available");
+        }
+    }
+
+    public void onPause() {
+        super.onPause();
+
+        Log.d(TAG, "onPause is being called");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Log.d(TAG, "onResume is being called");
+
+        boolean hasLocationPermission = mapViewModel.hasLocationPermission();
+        boolean isLocationUpdateCurrentlyActive = mapViewModel.isLocationUpdateActive();
+
+        // Update mapViewModel's Livedata for MapFragment UI
+        mapViewModel.setLocationPermissionLiveDataStatus(hasLocationPermission);
+
+        if (hasLocationPermission && !isLocationUpdateCurrentlyActive) {
+            Log.d(TAG, "onResume: Location permission given - starting updates");
+            startLocationUpdates();
+        } else if (hasLocationPermission && isLocationUpdateCurrentlyActive) {
+            Log.d(TAG, "onResume: Has Location permission and already observing updates");
+        } else if (!hasLocationPermission && isLocationUpdateCurrentlyActive) {
+            Log.d(TAG, "onResume: Location permission revoked - stopping location updates");
+            stopLocationUpdates();
+        } else {
+            Log.d(TAG, "onResume: No permission and not active");
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        Log.d(TAG, "onDestroyView is being called");
+
+        stopLocationUpdates();
+        binding = null;
+    }
+
+    // Testing purposes
+    private void carParkApiAndDbTest() {
         mapViewModel.getCarParkApiLookupLive().observe(getViewLifecycleOwner(), carParkApiLookup -> {
             Log.d(TAG, "Fragment API data observer triggered");
 
@@ -83,9 +177,57 @@ public class MapFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    // Location
+    private void requestLocationPermission() {
+        locationPermissionLauncher.launch(LOCATION_PERMISSIONS);
+    }
+
+    private void handleLocationButtonClick() {
+        if (mapViewModel.hasLocationPermission()) {
+            Log.d (TAG, "Returning back to user's location");
+        } else {
+            showSettingsDialog();
+        }
+    }
+
+    private void showSettingsDialog() {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Turn on your location settings for Park Where")
+                .setMessage("Select Location and Tap either Always or While Using")
+                .setPositiveButton("Go to Settings", (dialog, which) -> {
+                    PermissionUtils.openParkWhereAppSettings(requireActivity());
+                })
+                .setNegativeButton("No thanks", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
+    private void startLocationUpdates() {
+        if (mapViewModel.startLocationUpdates()) {
+            Log.d(TAG, "Setting up location observer");
+
+            // IMPORTANT: Added an initial null check to prevent the application from crashing when location is not set on the emulator
+            LiveData<Location> locationLiveData = mapViewModel.getLocationUpdates();
+
+            if (locationLiveData != null) {
+                locationLiveData.observe(getViewLifecycleOwner(), location -> {
+                    Log.d(TAG, "Location observer triggered");
+                    if (location != null) {
+                        Log.d(TAG, "Location: " + location.getLatitude() + ", " + location.getLongitude());
+                    } else {
+                        Log.d(TAG, "Location is NULL!");
+                    }
+                });
+            } else {
+                Log.d(TAG, "Location is null. Check to see if location is set on emulator");
+                mapViewModel.stopLocationUpdates();
+            }
+        } else {
+            Log.d(TAG, "Location update is active, observer is already set up");
+        }
+    }
+
+    private void stopLocationUpdates() {
+        Log.d(TAG, "Stopping location update");
+        mapViewModel.stopLocationUpdates();
     }
 }

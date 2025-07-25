@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Item with state_check="true" should be placed before the default icon variant -->
+    <item android:drawable="@drawable/ic_baseline_map_black_24dp" android:state_checked="true" />
+    <item android:drawable="@drawable/ic_outline_map_black_24dp" />
+</selector>

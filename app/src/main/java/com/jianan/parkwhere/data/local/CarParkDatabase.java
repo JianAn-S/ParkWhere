@@ -35,34 +35,30 @@ public abstract class CarParkDatabase extends RoomDatabase {
      * @param context the application context
      * @return the singleton {@link CarParkDatabase} instance
      */
-    public static CarParkDatabase getDatabase(Context context){
+    public static CarParkDatabase getDatabase(Context context, boolean shouldCreateFromAsset){
         if  (instance == null){
             // Synchronised prevents race conditions in multi-threaded environments by ensuring only one thread can create the INSTANCE at any point in time
             synchronized (CarParkDatabase.class) {
                 if (instance == null) {
-
                     // Room database persist between application restarts after it is created from the fresh installation
                     // This check ensures that createFromAsset() is called only if the DB does not exist avoiding unnecessary access to the asset directory which may leak resources
 
                     Context appContext = context.getApplicationContext();
-                    SettingsManager settingsManager = new SettingsManager(appContext);
+                    // SettingsManager settingsManager = new SettingsManager(appContext);
 
                     // Old code, delete after the new is integrated properly
                     // SharedPreferences prefs = context.getApplicationContext().getSharedPreferences("park_where_preferences", Context.MODE_PRIVATE);
                     // boolean isFirstRun = prefs.getBoolean("fresh_install", true);
 
                     RoomDatabase.Builder<CarParkDatabase> builder = Room.databaseBuilder(
-                            context.getApplicationContext(),
+                            appContext,
                             CarParkDatabase.class,
                             DB_NAME
                     );
 
                     // Only use createFromAsset() if this is the first time the application is run
-                    if (!settingsManager.isDatabaseInitialised()) {
+                    if (shouldCreateFromAsset) {
                         builder = builder.createFromAsset(DB_NAME);
-
-                        // Mark database as initialised after fresh installation
-                        settingsManager.markDatabaseInitialised();
                     }
 
                     instance = builder

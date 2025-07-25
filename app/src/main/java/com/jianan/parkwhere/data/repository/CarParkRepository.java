@@ -20,6 +20,7 @@ import retrofit2.Response;
 import com.jianan.parkwhere.data.local.CarPark;
 import com.jianan.parkwhere.data.local.CarParkDao;
 import com.jianan.parkwhere.data.local.CarParkDatabase;
+import com.jianan.parkwhere.data.preferences.SettingsManager;
 import com.jianan.parkwhere.data.remote.CarParkApiClient;
 import com.jianan.parkwhere.data.remote.CarParkApiService;
 import com.jianan.parkwhere.data.model.CarParkApiData;
@@ -27,20 +28,34 @@ import com.jianan.parkwhere.data.model.CarParkApiItem;
 import com.jianan.parkwhere.data.model.CarParkApiResponse;
 
 public class CarParkRepository {
+    private static final String TAG = "CarParkRepository";
     private final CarParkApiService apiService;
     private final CarParkDao carParkDao;
     private final Executor executor = Executors.newSingleThreadExecutor();
     private final MutableLiveData<Map<String, CarParkApiData>> carParkApiLookupLive = new MutableLiveData<>(new HashMap<>()); // In-memory lookup table where the key is the car park number (String) and the value is CarParkApiData
-    private static final String TAG = "CarParkRepository";
+    private final SettingsManager settingsManager;
     private static volatile CarParkRepository instance;
 
-    public CarParkRepository(Context context) {
+    private CarParkRepository(Context context) {
         // Obtain the Retrofit service instance
         this.apiService = CarParkApiClient.getService();
+        this.settingsManager = SettingsManager.getSettingsManager(context);
+
+        // If this is the first application launch, create the database from asset
+        boolean shouldCreateFromAsset = !settingsManager.isDatabaseInitialised();
+
+        // Get database instance
+        CarParkDatabase database = CarParkDatabase.getDatabase(context, shouldCreateFromAsset);
+        this.carParkDao = database.carParkDao();
+
+        // Mark database as initialised if it is created from asset
+        if (shouldCreateFromAsset) {
+            settingsManager.setDatabaseInitialised(true);
+        }
 
         // Use ApplicationContext (which ties to the app lifecycle) instead of Context to avoid leaking references tied to short-lived components like activities
         // getDatabase will obtain the application context, hence it is fine to provide context here
-        this.carParkDao = CarParkDatabase.getDatabase(context).carParkDao();
+        // this.carParkDao = CarParkDatabase.getDatabase(context).carParkDao();
     }
 
     public static CarParkRepository getCarParkRepo(Context context) {
