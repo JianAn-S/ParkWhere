@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Color for Bold Text -->
+    <color name="bold_text">@color/cream_white_F2EBE3</color>
+
+    <!-- Color for Bottom Navigation Bar -->
+    <color name="bottom_navigation_bar_background">@color/dark_12</color>
+
+    <!-- Colors for MapFragment's Re-center button -->
+    <color name="location_enabled_tint">@color/blue_0B80EE</color>
+    <color name="location_disabled_tint">@color/red_FF0000</color>
+    <color name="location_background_tint">@color/dark_08</color>
+
+    <!-- Color for Alert Dialog -->
+    <color name="alert_dialog_background">@color/dark_08</color>
+    <color name="alert_dialog_blue">@color/blue_0B80EE</color>
+    <color name="alert_dialog_ice_blue">@color/ice_blue_E8EDF5</color>
+
+    <!-- Color for Material Button Toggle Group -->
+    <color name="button_toggle_group_selected_background">@color/dark_08</color>
+    <color name="button_toggle_group_unselected_background">@color/dark_12</color>
+    <color name="button_toggle_group_selected_text">@color/light_grey_E8E5E0</color>
+    <color name="button_toggle_group_unselected_text">@color/light_blue_A38C75</color>
+    <color name="button_toggle_group_selected_stroke">@color/dark_18</color>
+</resources>

@@ -4,9 +4,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.View;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
 import androidx.core.splashscreen.SplashScreen;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -17,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jianan.parkwhere.R;
 import com.jianan.parkwhere.databinding.ActivityBottomNavHostBinding;
 import com.jianan.parkwhere.ui.map.MapViewModel;
+import com.jianan.parkwhere.util.ThemeUtils;
 
 public class BottomNavHostActivity extends AppCompatActivity {
     private static final String TAG = "BottomNavHostActivity";
@@ -34,7 +40,7 @@ public class BottomNavHostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
 
-        // Keep splash screen visible till either one of the boolen flags becomes true
+        // Keep splash screen visible till either one of the boolean flags becomes true
         splashScreen.setKeepOnScreenCondition(() -> !isDataLoaded && !isTimeout && !hasError);
 
         super.onCreate(savedInstanceState);
@@ -49,13 +55,21 @@ public class BottomNavHostActivity extends AppCompatActivity {
         };
         timeoutHandler.postDelayed(timeoutRunnable, SPLASH_TIMEOUT_MS);
 
-        // Switch to the default application theme after SplashScreen API finishes
-        setTheme(R.style.Theme_ParkWhere);
+        // Switch to the saved application theme after SplashScreen API finishes
+        ThemeUtils.applyTheme(this);
+
+        // On Android 15+ (API 35+), edge-to-edge is enabled automatically when targeting SDK 35 or higher
+        // For earlier versions, this enables edge-to-edge compatibility on older devices
+        EdgeToEdge.enable(this);
 
         binding = ActivityBottomNavHostBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Setup MapViewModel and observe API data
+        // Insets represents the area of the screen occupied by system UI
+        // Setup window insets for edge-to-edge
+        setupWindowInsets();
+
+        // Setup MapViewModel and observe API data to check if data is received
         setupMapViewModelAndObserver();
 
         // Setup bottom navigation bar
@@ -83,6 +97,26 @@ public class BottomNavHostActivity extends AppCompatActivity {
                 Log.d(TAG, "API data loaded successfully, exiting out of splash screen");
                 isDataLoaded = true;
             }
+        });
+    }
+
+    private void setupWindowInsets() {
+        // Listener gets called when the status bar or bottom navigation bar is detected
+        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+            // Obtain the insets for the system bars (status bar, bottom navigation bar, etc)
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+
+            // Apply padding to the root container, bottom navigation bar will be handled separately
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
+
+            // Apply bottom padding for the bottom navigation bar according to its size
+            View navHostFragment = findViewById(R.id.navHostFragment);
+            if (navHostFragment != null) {
+                navHostFragment.setPadding(0, 0, 0, systemBars.bottom);
+            }
+
+            return insets;
+            // or return insets.replaceSystemWindowInsets(0, 0, 0, 0);
         });
     }
 

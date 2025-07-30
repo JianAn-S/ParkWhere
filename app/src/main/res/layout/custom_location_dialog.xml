@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_rectangle_background"
+    android:orientation="vertical"
+    android:padding="16dp">
+    <!-- Layout margin is the space between this layout and its parent. -->
+    <!-- Padding is the space between the layout and its child views. -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Turn on your location settings for ParkWhere"
+        android:textColor="@color/bold_text"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="1. Select Location"
+        android:textColor="?attr/android:textColorPrimary"
+        android:textSize="16sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="2. Tap While Using or Always"
+        android:textColor="?attr/android:textColorPrimary"
+        android:textSize="16sp" />
+
+    <!-- LinearLayout for Button -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_location_decline"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/alert_dialog_ice_blue"
+            android:text="No thanks"
+            android:textColor="@color/alert_dialog_blue"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/button_location_accept"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/alert_dialog_blue"
+            android:text="Go to Settings"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</LinearLayout>

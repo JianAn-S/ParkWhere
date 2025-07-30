@@ -8,7 +8,53 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!-- Light Mode -->
+    <!-- White color palette according to brightness -->
+    <color name="white_98">#FAFAFA</color>
+    <color name="white_94">#F0F0F0</color>
+    <color name="white_88">#E0E0E0</color>
+
+    <!-- Dark color palette -->
+    <color name="charcoal_141A1F">#141A1F</color>
+    <color name="blue_black_0D141C">#0D141C</color>
+    <color name="slate_grey_5C738A">#5C738A</color>
+
+    <!-- Dark Mode -->
+    <!-- Dark color palette according to brightness -->
+    <color name="dark_08">#141414</color>
+    <color name="dark_12">#1E1E1E</color>
+    <color name="dark_18">#2D2D2D</color>
+
+    <!-- Light color palette -->
+    <color name="light_grey_E8E5E0">#E8E5E0</color>
+    <color name="cream_white_F2EBE3">#F2EBE3</color>
+    <color name="light_blue_A38C75">#A38C75</color>
+
+    <!-- Shared colors used by Light and Dark Mode -->
+    <color name="blue_0B80EE">#0B80EE</color>
+    <color name="ice_blue_E8EDF5">#E8EDF5</color>
+    <color name="red_FF0000">#FF0000</color>
+
+    <!-- Color for Bold Text -->
+    <color name="bold_text">@color/blue_black_0D141C</color>
+
+    <!-- Color for Bottom Navigation Bar -->
+    <color name="bottom_navigation_bar_background">@color/white_94</color>
+
     <!-- Colors for MapFragment's Re-center button -->
-    <color name="location_enabled_tint">#3870E0</color>
-    <color name="location_disabled_tint">#FF0000</color>
+    <color name="location_enabled_tint">@color/blue_0B80EE</color>
+    <color name="location_disabled_tint">@color/red_FF0000</color>
+    <color name="location_background_tint">@color/white_98</color>
+
+    <!-- Color for Alert Dialog -->
+    <color name="alert_dialog_background">@color/white_98</color>
+    <color name="alert_dialog_blue">@color/blue_0B80EE</color>
+    <color name="alert_dialog_ice_blue">@color/ice_blue_E8EDF5</color>
+
+    <!-- Color for Material Button Toggle Group -->
+    <color name="button_toggle_group_selected_background">@color/white_98</color>
+    <color name="button_toggle_group_unselected_background">@color/white_94</color>
+    <color name="button_toggle_group_selected_text">@color/charcoal_141A1F</color>
+    <color name="button_toggle_group_unselected_text">@color/slate_grey_5C738A</color>
+    <color name="button_toggle_group_selected_stroke">@color/white_88</color>
 </resources>

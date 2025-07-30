@@ -23,7 +23,7 @@
             android:src="@{viewModel.hasLocationPermissionLiveData ? @drawable/ic_baseline_near_me_black_24dp : @drawable/ic_outline_near_me_disabled_black_24dp}"
             android:tint="@{viewModel.hasLocationPermissionLiveData ? @color/location_enabled_tint : @color/location_disabled_tint}"
             app:fabSize="normal"
-            app:backgroundTint="#FDFDFD" />
+            app:backgroundTint="@color/location_background_tint" />
     </FrameLayout>
 
 </layout>

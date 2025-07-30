@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 
 import com.jianan.parkwhere.R;
 import com.jianan.parkwhere.data.model.CarParkApiData;
+import com.jianan.parkwhere.databinding.CustomLocationDialogBinding;
 import com.jianan.parkwhere.databinding.FragmentMapBinding;
 import com.jianan.parkwhere.util.PermissionUtils;
 
@@ -55,7 +56,7 @@ public class MapFragment extends Fragment {
         // For data binding, DataBindingUtil is used instead of FragmentMapBinding
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_map , container, false);
 
-        // Lifecycle onwer is set for LiveData in XML
+        // Lifecycle owner is set for LiveData in XML
         binding.setLifecycleOwner(this);
 
         return binding.getRoot();
@@ -71,7 +72,7 @@ public class MapFragment extends Fragment {
         // Bind MapViewModel to XML
         binding.setViewModel(mapViewModel);
 
-        // Bind the button to the on click listener
+        // Bind the button to the onclick listener
         binding.buttonRecenterLocation.setOnClickListener(v -> handleLocationButtonClick());
 
         // Test Car Park API & DB implementation
@@ -191,14 +192,29 @@ public class MapFragment extends Fragment {
     }
 
     private void showSettingsDialog() {
-        new AlertDialog.Builder(requireContext())
-                .setTitle("Turn on your location settings for Park Where")
-                .setMessage("Select Location and Tap either Always or While Using")
-                .setPositiveButton("Go to Settings", (dialog, which) -> {
-                    PermissionUtils.openParkWhereAppSettings(requireActivity());
-                })
-                .setNegativeButton("No thanks", (dialog, which) -> dialog.dismiss())
-                .show();
+        // Create view binding for custom location dialog
+        CustomLocationDialogBinding dialogBinding = CustomLocationDialogBinding.inflate(getLayoutInflater());
+
+        // Create alert dialog
+        AlertDialog dialog = new AlertDialog.Builder(requireContext())
+                .setView(dialogBinding.getRoot())
+                .setCancelable(true)
+                .create();
+
+        // Make custom location dialog transparent to show rounded corners
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
+        // Set up button click listeners
+        dialogBinding.buttonLocationAccept.setOnClickListener(v -> {
+            PermissionUtils.openParkWhereAppSettings(requireActivity());
+            dialog.dismiss();
+        });
+
+        dialogBinding.buttonLocationDecline.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
     }
 
     private void startLocationUpdates() {
