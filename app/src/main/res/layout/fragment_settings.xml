@@ -5,196 +5,201 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
     tools:context=".ui.settings.SettingsFragment">
 
-    <!-- Preferences -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Preferences"
-        android:textColor="@color/bold_text"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:cardCornerRadius="12dp">
-
-        <LinearLayout
+        <!-- Preferences -->
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:layout_marginBottom="8dp"
+            android:text="Preferences"
+            android:textColor="@color/bold_text"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp">
 
             <!-- Vehicle Type -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="Vehicle Type"
-                android:textColor="?attr/android:textColorPrimary"
-                android:textSize="16sp" />
-
-            <com.google.android.material.button.MaterialButtonToggleGroup
-                android:id="@+id/vehicleToggleGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="8dp"
-                app:checkedButton="@id/button_both"
-                app:selectionRequired="true"
-                app:singleSelection="true">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_both"
-                    style="@style/CustomButtonToggleGroup"
-                    android:text="Both" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_car"
-                    style="@style/CustomButtonToggleGroup"
-                    android:text="Car" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_motorcycle"
-                    style="@style/CustomButtonToggleGroup"
-                    android:text="Motorcycle" />
-
-            </com.google.android.material.button.MaterialButtonToggleGroup>
-
-            <!-- Appearance Theme -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="Appearance"
-                android:textColor="?attr/android:textColorPrimary"
-                android:textSize="16sp" />
-
-            <com.google.android.material.button.MaterialButtonToggleGroup
-                android:id="@+id/appearanceToggleGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:checkedButton="@id/button_system"
-                app:selectionRequired="true"
-                app:singleSelection="true">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_system"
-                    style="@style/CustomButtonToggleGroup"
-                    android:text="System" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_light"
-                    style="@style/CustomButtonToggleGroup"
-                    android:text="Light" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_dark"
-                    style="@style/CustomButtonToggleGroup"
-                    android:text="Dark" />
-
-            </com.google.android.material.button.MaterialButtonToggleGroup>
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <!-- About -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="About"
-        android:textColor="@color/bold_text"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:cardCornerRadius="12dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp">
-
-            <!-- App Version -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:padding="8dp">
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="App Version"
+                    android:layout_marginBottom="4dp"
+                    android:text="Vehicle Type"
                     android:textColor="?attr/android:textColorPrimary"
                     android:textSize="16sp" />
 
-                <TextView
-                    android:layout_width="0dp"
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/vehicleToggleGroup"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:text="0.5.0"
-                    android:textColor="@color/slate_grey_5C738A"
-                    android:textSize="12sp" />
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="8dp"
+                    app:checkedButton="@id/button_both"
+                    app:selectionRequired="true"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_both"
+                        style="@style/CustomButtonToggleGroup"
+                        android:text="Both" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_car"
+                        style="@style/CustomButtonToggleGroup"
+                        android:text="Car" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_motorcycle"
+                        style="@style/CustomButtonToggleGroup"
+                        android:text="Motorcycle" />
+
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                <!-- Appearance Theme -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:text="Appearance"
+                    android:textColor="?attr/android:textColorPrimary"
+                    android:textSize="16sp" />
+
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/appearanceToggleGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:checkedButton="@id/button_system"
+                    app:selectionRequired="true"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_system"
+                        style="@style/CustomButtonToggleGroup"
+                        android:text="System" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_light"
+                        style="@style/CustomButtonToggleGroup"
+                        android:text="Light" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/button_dark"
+                        style="@style/CustomButtonToggleGroup"
+                        android:text="Dark" />
+
+                </com.google.android.material.button.MaterialButtonToggleGroup>
 
             </LinearLayout>
 
+        </androidx.cardview.widget.CardView>
+
+        <!-- About -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="About"
+            android:textColor="@color/bold_text"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:padding="8dp">
 
-                <TextView
-                    android:layout_width="0dp"
+                <!-- App Version -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Device Info"
-                    android:textColor="?attr/android:textColorPrimary"
-                    android:textSize="16sp" />
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="App Version"
+                        android:textColor="?attr/android:textColorPrimary"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="0.5.0"
+                        android:textColor="@color/slate_grey_5C738A"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textDeviceInfo"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="Device Info"
-                        android:textAlignment="viewEnd"
-                        android:textColor="@color/slate_grey_5C738A"
-                        android:textSize="12sp" />
+                        android:textColor="?attr/android:textColorPrimary"
+                        android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/textDeviceAPI"
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Device API"
-                        android:textAlignment="viewEnd"
-                        android:textColor="@color/slate_grey_5C738A"
-                        android:textSize="12sp" />
+                        android:layout_weight="2"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textDeviceInfo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Device Info"
+                            android:textAlignment="viewEnd"
+                            android:textColor="@color/slate_grey_5C738A"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/textDeviceAPI"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Device API"
+                            android:textAlignment="viewEnd"
+                            android:textColor="@color/slate_grey_5C738A"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 </LinearLayout>

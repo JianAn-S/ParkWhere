@@ -27,7 +27,6 @@ import com.jianan.parkwhere.util.ThemeUtils;
 public class BottomNavHostActivity extends AppCompatActivity {
     private static final String TAG = "BottomNavHostActivity";
     private static final long SPLASH_TIMEOUT_MS = 5000;
-
     private ActivityBottomNavHostBinding binding;
     private Handler timeoutHandler;
     private Runnable timeoutRunnable;
@@ -45,7 +44,7 @@ public class BottomNavHostActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        // Setup timeout handler to allow splash screen to proceed to BottomNavHostActivity if it takes longer than 10s to receive data from the API endpoint
+        // Setup timeout handler to allow splash screen to proceed to BottomNavHostActivity if it takes longer than 5s to receive data from the API endpoint
         timeoutHandler = new Handler(Looper.getMainLooper());
         timeoutRunnable = () -> {
             if (!isDataLoaded) {
@@ -129,7 +128,7 @@ public class BottomNavHostActivity extends AppCompatActivity {
                 R.id.navigation_map, R.id.navigation_list, R.id.navigation_bookmarks, R.id.navigation_settings)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.navHostFragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        // NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
     }
 

@@ -20,6 +20,6 @@
     <color name="button_toggle_group_selected_background">@color/dark_08</color>
     <color name="button_toggle_group_unselected_background">@color/dark_12</color>
     <color name="button_toggle_group_selected_text">@color/light_grey_E8E5E0</color>
-    <color name="button_toggle_group_unselected_text">@color/light_blue_A38C75</color>
-    <color name="button_toggle_group_selected_stroke">@color/dark_18</color>
+    <color name="button_toggle_group_unselected_text">@color/slate_grey_5C738A</color>
+    <color name="button_toggle_group_selected_stroke">@color/dark_06</color>
 </resources>

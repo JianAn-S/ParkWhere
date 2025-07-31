@@ -129,12 +129,12 @@ public class SettingsManager {
     }
 
     public int getThemeMode() {
-        int themeMode = sharedPreferences.getInt(KEY_THEME_MODE, THEME_SYSTEM);
-        Log.d("SharedPreferences", "KEY_THEME_MODE value is : " + themeMode);
-        return themeMode;
+        // int themeMode = sharedPreferences.getInt(KEY_THEME_MODE, THEME_SYSTEM);
+        // Log.d("SharedPreferences", "KEY_THEME_MODE value is : " + themeMode);
+        // return themeMode;
 
         // Once proven to work, delete the above and uncomment below
-        //return sharedPreferences.getBoolean(KEY_THEME_MODE, THEME_SYSTEM);
+        return sharedPreferences.getInt(KEY_THEME_MODE, THEME_SYSTEM);
     }
 
     public void setThemeMode(int themeMode) {

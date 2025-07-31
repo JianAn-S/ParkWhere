@@ -16,19 +16,26 @@ import android.view.ViewGroup;
 
 import com.jianan.parkwhere.R;
 import com.jianan.parkwhere.databinding.FragmentSettingsBinding;
+import com.jianan.parkwhere.ui.CustomFragment;
 import com.jianan.parkwhere.ui.map.MapViewModel;
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends CustomFragment {
 
     private static final String TAG = "SettingsFragment";
     private FragmentSettingsBinding binding;
     private SettingsViewModel settingsViewModel;
 
+    // Change onCreateView with inflateFragmentLayout or vice versa
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+    public View inflateFragmentLayout(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
         return binding.getRoot();
+    }
+
+    @Override
+    protected String getActionBarTitle() {
+        return "Settings";
     }
 
     @Override

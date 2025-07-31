@@ -10,7 +10,7 @@
             type="com.jianan.parkwhere.ui.map.MapViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.map.MapFragment">
@@ -19,11 +19,12 @@
             android:id="@+id/button_recenter_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:src="@{viewModel.hasLocationPermissionLiveData ? @drawable/ic_baseline_near_me_black_24dp : @drawable/ic_outline_near_me_disabled_black_24dp}"
             android:tint="@{viewModel.hasLocationPermissionLiveData ? @color/location_enabled_tint : @color/location_disabled_tint}"
+            app:backgroundTint="@color/location_background_tint"
             app:fabSize="normal"
-            app:backgroundTint="@color/location_background_tint" />
-    </FrameLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

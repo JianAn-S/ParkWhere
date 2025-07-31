@@ -23,12 +23,12 @@
     <!-- Dark color palette according to brightness -->
     <color name="dark_08">#141414</color>
     <color name="dark_12">#1E1E1E</color>
-    <color name="dark_18">#2D2D2D</color>
+    <color name="dark_06">#6B6B6B</color>
 
     <!-- Light color palette -->
     <color name="light_grey_E8E5E0">#E8E5E0</color>
     <color name="cream_white_F2EBE3">#F2EBE3</color>
-    <color name="light_blue_A38C75">#A38C75</color>
+    <!--color name="slate_grey_5C738A">#5C738A</color-->
 
     <!-- Shared colors used by Light and Dark Mode -->
     <color name="blue_0B80EE">#0B80EE</color>
