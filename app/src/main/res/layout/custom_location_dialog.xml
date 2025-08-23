@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Turn on your location settings for ParkWhere"
+        android:text="Turn on your location services for ParkWhere"
         android:textColor="@color/bold_text"
         android:textSize="18sp"
         android:textStyle="bold" />

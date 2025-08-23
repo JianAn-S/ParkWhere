@@ -12,6 +12,7 @@
     <!-- White color palette according to brightness -->
     <color name="white_98">#FAFAFA</color>
     <color name="white_94">#F0F0F0</color>
+    <color name="white_93">#E8EDF5</color>
     <color name="white_88">#E0E0E0</color>
 
     <!-- Dark color palette -->
@@ -46,12 +47,15 @@
     <color name="location_disabled_tint">@color/red_FF0000</color>
     <color name="location_background_tint">@color/white_98</color>
 
-    <!-- Color for Alert Dialog -->
+    <!-- Color for MapFragment's Alert Dialog -->
     <color name="alert_dialog_background">@color/white_98</color>
     <color name="alert_dialog_blue">@color/blue_0B80EE</color>
-    <color name="alert_dialog_ice_blue">@color/ice_blue_E8EDF5</color>
+    <color name="alert_dialog_ice_blue">@color/ice_blue_E8EDF5</color>4
 
-    <!-- Color for Material Button Toggle Group -->
+    <!-- Color for ListFragment's Car Park Icon Background -->
+    <color name="icon_background">@color/white_93</color>
+
+    <!-- Color for Settings's Material Button Toggle Group -->
     <color name="button_toggle_group_selected_background">@color/white_98</color>
     <color name="button_toggle_group_unselected_background">@color/white_94</color>
     <color name="button_toggle_group_selected_text">@color/charcoal_141A1F</color>

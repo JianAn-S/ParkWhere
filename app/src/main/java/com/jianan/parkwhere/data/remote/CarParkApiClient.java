@@ -10,8 +10,7 @@ public class CarParkApiClient {
     private static Retrofit retrofit;
 
     /**
-     * Returns a singleton instance of {@link CarParkApiService},
-     * which defines the API endpoints for Retrofit to implement.
+     * Returns a singleton instance of {@link CarParkApiService}, which defines the API endpoints for Retrofit to implement
      *
      * @return a configured instance of CarParkApiService
      */
@@ -19,21 +18,15 @@ public class CarParkApiClient {
         // Only build the Retrofit instance once (lazy initialisation)
         if (retrofit == null) {
 
-            // Create an HTTP logging interceptor to log request/response data
-            // HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            // logging.setLevel(HttpLoggingInterceptor.Level.BODY); // Logs full JSON payloads
-
             // Build OkHttpClient and attach the logging interceptor
-            OkHttpClient client = new OkHttpClient.Builder()
-                     //.addInterceptor(logging)
-                    .build();
+            OkHttpClient client = new OkHttpClient.Builder().build();
 
             // Build the Retrofit instance using the base URL and custom OkHttp client
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
-                    .build(); // No Gson converter yet – raw response only
+                    .build();
         }
 
         // Return an implementation of the API interface created by Retrofit

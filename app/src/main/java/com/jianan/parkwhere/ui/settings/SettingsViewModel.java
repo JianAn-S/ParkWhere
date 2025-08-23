@@ -11,6 +11,10 @@ import androidx.lifecycle.MutableLiveData;
 import com.jianan.parkwhere.data.preferences.SettingsManager;
 import com.jianan.parkwhere.util.ThemeUtils;
 
+/**
+ * ViewModel for managing user settings
+ * Provides access to settings through SettingsManager and exposes constants for UI
+ */
 public class SettingsViewModel extends AndroidViewModel {
     private static final String TAG = "SettingsViewModel"; // For logging
     private final SettingsManager settingsManager;
@@ -29,18 +33,30 @@ public class SettingsViewModel extends AndroidViewModel {
         settingsManager = SettingsManager.getSettingsManager(application);
     }
 
+    /**
+     * Returns the currently saved vehicle type
+     */
     public int getCurrentVehicleType() {
         return settingsManager.getVehicleType();
     }
 
+    /**
+     * Saves the selected vehicle type
+     */
     public void setVehicleType(int vehicleType) {
         settingsManager.setVehicleType(vehicleType);
     }
 
+    /**
+     * Returns the currently saved theme mode
+     */
     public int getCurrentThemeMode() {
         return settingsManager.getThemeMode();
     }
 
+    /**
+     * Saves the selected theme mode and applies the new theme
+     */
     public void setThemeMode(int themeMode) {
         settingsManager.setThemeMode(themeMode);
 

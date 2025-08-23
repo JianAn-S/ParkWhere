@@ -17,4 +17,20 @@ public interface CarParkDao {
      */
     @Query("SELECT * FROM car_park WHERE carParkNumber = :carParkNumber LIMIT 1")
     CarPark getCarParkByNumber(String carParkNumber);
+
+    /**
+     * Retrieves car parks within the specified bounding box coordinates.
+     * Used as the first filter for nearby car park searches.
+     *
+     * @param minLat Minimum latitude (Y-axis) of the bounding box
+     * @param maxLat Maximum latitude (Y-axis) of the bounding box
+     * @param minLon Minimum longitude (X-axis) of the bounding box
+     * @param maxLon Maximum longitude (X-axis) of the bounding box
+     * @return List of car parks within the bounding box
+     */
+    @Query("SELECT * FROM car_park WHERE latitude BETWEEN :minLat AND :maxLat AND longitude BETWEEN :minLon AND :maxLon")
+    List<CarPark> getCarParksInBoundingBox(double minLat, double maxLat, double minLon, double maxLon);
+
+    @Query ("SELECT * FROM car_park")
+    List<CarPark> getAllCarParks();
 }

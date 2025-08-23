@@ -19,9 +19,13 @@ import com.jianan.parkwhere.databinding.FragmentSettingsBinding;
 import com.jianan.parkwhere.ui.CustomFragment;
 import com.jianan.parkwhere.ui.map.MapViewModel;
 
+/**
+ * Fragment that handles application settings
+ * Provides UI for selecting vehicle type, theme mode and displaying device info
+ */
 public class SettingsFragment extends CustomFragment {
 
-    private static final String TAG = "SettingsFragment";
+    // private static final String TAG = "SettingsFragment";
     private FragmentSettingsBinding binding;
     private SettingsViewModel settingsViewModel;
 
@@ -33,6 +37,7 @@ public class SettingsFragment extends CustomFragment {
         return binding.getRoot();
     }
 
+    // Sets the title to be displayed in the custom toolbar for the Settings fragment
     @Override
     protected String getActionBarTitle() {
         return "Settings";
@@ -62,6 +67,9 @@ public class SettingsFragment extends CustomFragment {
         binding = null;
     }
 
+    /**
+     * Sets the initial toggle states for vehicle type and theme based on saved preferences
+     */
     private void setupInitialButtonToggleGroupStates () {
         int currentVehicleType = settingsViewModel.getCurrentVehicleType();
         int currentThemeMode = settingsViewModel.getCurrentThemeMode();
@@ -91,6 +99,10 @@ public class SettingsFragment extends CustomFragment {
         }
     }
 
+    /**
+     * Sets up listeners for vehicle type and theme toggle groups
+     * Updates the ViewModel when the user makes a selection
+     */
     private void setupOnClickListeners() {
         // Vehicle type button toggle group
         binding.vehicleToggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
@@ -123,6 +135,9 @@ public class SettingsFragment extends CustomFragment {
         });
     }
 
+    /**
+     * Displays device manufacturer, model and API level information
+     */
     private void setDeviceInfo() {
         String deviceInfo = Build.MANUFACTURER + " " + Build.MODEL;
         String apiInfo = "(API: " + Build.VERSION.SDK_INT + ")";

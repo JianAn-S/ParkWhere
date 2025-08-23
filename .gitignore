@@ -8,6 +8,8 @@
 build
 captures
 local.properties
+local.defaults.properties
+secrets.properties
 
 # Ignore user-specific or volatile IDE files in .idea
 .idea/assetWizardSettings.xml

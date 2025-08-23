@@ -6,7 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 /**
- * Retrofit API interface for retrieving car park availability data from the remote endpoint.
+ * Retrofit API interface for retrieving car park availability data from the remote endpoint
  */
 public interface CarParkApiService {
     /**

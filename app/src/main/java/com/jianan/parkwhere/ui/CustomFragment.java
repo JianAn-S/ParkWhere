@@ -15,6 +15,10 @@ import androidx.fragment.app.Fragment;
 
 import com.jianan.parkwhere.R;
 
+/**
+ * Custom fragment class that provides a reusable custom toolbar setup
+ * Subclasses must define their layout and toolbar title
+ */
 public abstract class CustomFragment extends Fragment {
     private Toolbar customToolbar;
 
@@ -36,6 +40,9 @@ public abstract class CustomFragment extends Fragment {
         setupActionBarTitle();
     }
 
+    /**
+     * Sets up a custom toolbar at the top of the fragment layout
+     */
     private void setupCustomActionBar(ViewGroup rootView) {
         // Inflate the custom tool bar
         View customActionBarView = LayoutInflater.from(getContext()).inflate(R.layout.custom_tool_bar, rootView, false);
@@ -53,6 +60,9 @@ public abstract class CustomFragment extends Fragment {
         }
     }
 
+    /**
+     * Sets the title in the custom toolbar using the value provided by subclasses
+     */
     private void setupActionBarTitle() {
         if (customToolbar != null) {
             TextView titleView = customToolbar.findViewById(R.id.toolbar_title);
@@ -60,7 +70,17 @@ public abstract class CustomFragment extends Fragment {
         }
     }
 
+    // -------------------------
     // Abstract methods for subclasses to implement
+    // -------------------------
+
+    /**
+     * Subclasses must provide the layout to inflate for the fragment
+     */
     protected abstract View inflateFragmentLayout(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
+
+    /**
+     * Subclasses must provide the title to be displayed in the custom toolbar
+     */
     protected abstract String getActionBarTitle();
 }

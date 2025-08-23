@@ -15,13 +15,11 @@ import com.jianan.parkwhere.data.preferences.SettingsManager;
 /**
  * Singleton Room database for storing {@link CarPark} entities.
  *
- * <p>This database ensures only one instance exists throughout the application's
+ * This database ensures only one instance exists throughout the application's
  * lifecycle. On fresh installation, the database is pre-populated from the bundled
  * {@code carpark.db} asset and persists between application restarts.
- * </p>
  *
- * <p>The database provides an access point to the {@link CarParkDao}.
- * </p>
+ * The database provides an access point to the {@link CarParkDao}.
  */
 @Database(entities = {CarPark.class}, version = 1)
 public abstract class CarParkDatabase extends RoomDatabase {

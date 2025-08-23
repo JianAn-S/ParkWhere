@@ -5,11 +5,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Represents a list of individual car park data from the API response.
+ * Represents a list of individual car park data from the API response
  *
- * <p> It consists the car park information, number and last update time
- * (for the specific car park).
- * </p>
+ * It consists the car park information, number and last update time for the specific car park
  */
 public class CarParkApiData {
     @SerializedName("carpark_number")

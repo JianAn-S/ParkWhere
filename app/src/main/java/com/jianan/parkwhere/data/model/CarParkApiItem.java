@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Represents a single entry in the API response which includes the timestamp
- * when the data was retrieved. It contains a {@code CarParkApiData} object.
+ * when the data was retrieved. It contains a {@code CarParkApiData} object
  */
 public class CarParkApiItem {
     private String timestamp;

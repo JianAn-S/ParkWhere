@@ -10,8 +10,15 @@ import androidx.appcompat.app.AppCompatDelegate;
 import com.jianan.parkwhere.data.preferences.SettingsManager;
 import com.jianan.parkwhere.R;
 
+/**
+ * Utility class for applying themes across the application
+ */
 public class ThemeUtils {
-    // Apply theme across the application
+    /**
+     * Apply the user-selected theme mode across the application
+     *
+     * @param context the application or activity context used to access settings
+     */
     public static void applyTheme(Context context) {
         SettingsManager settingsManager = SettingsManager.getSettingsManager(context);
         int themeMode = settingsManager.getThemeMode();

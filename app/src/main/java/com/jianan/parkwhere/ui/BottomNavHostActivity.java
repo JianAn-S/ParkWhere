@@ -18,14 +18,21 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.libraries.places.api.Places;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.jianan.parkwhere.BuildConfig;
 import com.jianan.parkwhere.R;
 import com.jianan.parkwhere.databinding.ActivityBottomNavHostBinding;
 import com.jianan.parkwhere.ui.map.MapViewModel;
+import com.jianan.parkwhere.util.ApiScheduler;
 import com.jianan.parkwhere.util.ThemeUtils;
 
+/**
+ * Activity hosting the bottom navigation and application content
+ * Displays a splash screen until API data is loaded, a timeout occurs, or an error happens
+ */
 public class BottomNavHostActivity extends AppCompatActivity {
-    private static final String TAG = "BottomNavHostActivity";
+    // private static final String TAG = "BottomNavHostActivity";
     private static final long SPLASH_TIMEOUT_MS = 5000;
     private ActivityBottomNavHostBinding binding;
     private Handler timeoutHandler;
@@ -35,6 +42,7 @@ public class BottomNavHostActivity extends AppCompatActivity {
     private boolean isDataLoaded = false;
     private boolean isTimeout = false;
     private boolean hasError = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
@@ -48,7 +56,7 @@ public class BottomNavHostActivity extends AppCompatActivity {
         timeoutHandler = new Handler(Looper.getMainLooper());
         timeoutRunnable = () -> {
             if (!isDataLoaded) {
-                Log.d(TAG, "Splash screen timeout reached, proceeding without API information");
+                // Log.d(TAG, "Splash screen timeout reached, proceeding without API information");
                 isTimeout = true;
             }
         };
@@ -60,6 +68,11 @@ public class BottomNavHostActivity extends AppCompatActivity {
         // On Android 15+ (API 35+), edge-to-edge is enabled automatically when targeting SDK 35 or higher
         // For earlier versions, this enables edge-to-edge compatibility on older devices
         EdgeToEdge.enable(this);
+
+        // Initialise Places API
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), BuildConfig.MAPS_API_KEY);
+        }
 
         binding = ActivityBottomNavHostBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -75,12 +88,20 @@ public class BottomNavHostActivity extends AppCompatActivity {
         setupBottomNavigation();
     }
 
+    /**
+     * Sets up the MapViewModel and observes API data
+     * Exits splash screen once valid API results are received
+     */
     private void setupMapViewModelAndObserver() {
         MapViewModel mapViewModel;
         try {
             mapViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(MapViewModel.class);
+
+            // Initialise API scheduler
+            mapViewModel.initialiseApiScheduler();
+
         } catch (Exception e) {
-            Log.d(TAG, "Error creating MapViewModel");
+            // Log.d(TAG, "Error creating MapViewModel");
             hasError = true;
             return;
         }
@@ -90,35 +111,35 @@ public class BottomNavHostActivity extends AppCompatActivity {
             // When the observer is first attached, LiveData immediately emits its current value.
             // As carParkApiLookupLive starts out as an empty Map, the first emitted value is empty.
             // Therefore, isEmpty() filters out this initial “empty” state so only real API results are processed.
-            Log.d(TAG, "API data observer triggered");
+            // Log.d(TAG, "API data observer triggered");
 
             if (carParkApiLookup != null && !carParkApiLookup.isEmpty()) {
-                Log.d(TAG, "API data loaded successfully, exiting out of splash screen");
+                // Log.d(TAG, "API data loaded successfully, exiting out of splash screen");
                 isDataLoaded = true;
             }
         });
     }
 
+    /**
+     * Sets up window insets so that system UI (status bar, navigation bar) does not overlap application         content
+     */
     private void setupWindowInsets() {
         // Listener gets called when the status bar or bottom navigation bar is detected
         ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
             // Obtain the insets for the system bars (status bar, bottom navigation bar, etc)
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
 
-            // Apply padding to the root container, bottom navigation bar will be handled separately
+            // Apply padding to the root container, bottom navigation bar is already handled hence 0
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
 
-            // Apply bottom padding for the bottom navigation bar according to its size
-            View navHostFragment = findViewById(R.id.navHostFragment);
-            if (navHostFragment != null) {
-                navHostFragment.setPadding(0, 0, 0, systemBars.bottom);
-            }
-
             return insets;
-            // or return insets.replaceSystemWindowInsets(0, 0, 0, 0);
         });
     }
 
+    /**
+     * Configures bottom navigation bar with navigation controller
+     * Connects menu items to top-level destinations
+     */
     private void setupBottomNavigation() {
         // Setup Bottom Navigation View
         BottomNavigationView navView = findViewById(R.id.bottomNavigationView);
@@ -142,5 +163,6 @@ public class BottomNavHostActivity extends AppCompatActivity {
         }
 
         binding = null;
+        ApiScheduler.getInstance().cleanup();
     }
 }

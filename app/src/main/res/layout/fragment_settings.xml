@@ -152,7 +152,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:text="0.5.0"
+                        android:text="1.0.0"
                         android:textColor="@color/slate_grey_5C738A"
                         android:textSize="14sp" />
 
@@ -178,7 +178,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/textDeviceInfo"
+                            android:id="@+id/text_device_info"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Device Info"
@@ -187,7 +187,7 @@
                             android:textSize="14sp" />
 
                         <TextView
-                            android:id="@+id/textDeviceAPI"
+                            android:id="@+id/text_device_API"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Device API"
