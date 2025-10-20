@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -258,7 +257,7 @@ public class BookmarksFragment extends CustomFragment implements CarParkAdapter.
         Snackbar snackbar = Snackbar.make(binding.getRoot(), message, Snackbar.LENGTH_SHORT);
 
         // Anchor the Snackbar above the bottom navigation bar (to prevent blocking)
-        View bottomNavigationView = requireActivity().findViewById(R.id.bottomNavigationView);
+        View bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
         snackbar.setAnchorView(bottomNavigationView);
 
         // Center the text

@@ -3,7 +3,6 @@ package com.jianan.parkwhere.ui.map;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
@@ -840,7 +839,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         Snackbar snackbar = Snackbar.make(binding.getRoot(), message, Snackbar.LENGTH_SHORT);
 
         // Anchor the Snackbar above the bottom navigation bar (to prevent blocking)
-        View bottomNavigationView = requireActivity().findViewById(R.id.bottomNavigationView);
+        View bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
         snackbar.setAnchorView(bottomNavigationView);
 
         // Center the text

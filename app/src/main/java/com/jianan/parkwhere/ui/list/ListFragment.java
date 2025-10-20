@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -432,7 +431,7 @@ public class ListFragment extends CustomFragment implements CarParkAdapter.OnCar
         Snackbar snackbar = Snackbar.make(binding.getRoot(), message, Snackbar.LENGTH_SHORT);
 
         // Anchor the Snackbar above the bottom navigation bar (to prevent blocking)
-        View bottomNavigationView = requireActivity().findViewById(R.id.bottomNavigationView);
+        View bottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation_view);
         snackbar.setAnchorView(bottomNavigationView);
 
         // Center the text

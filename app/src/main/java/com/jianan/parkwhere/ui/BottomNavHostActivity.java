@@ -3,8 +3,6 @@ package com.jianan.parkwhere.ui;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
-import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -121,7 +119,7 @@ public class BottomNavHostActivity extends AppCompatActivity {
     }
 
     /**
-     * Sets up window insets so that system UI (status bar, navigation bar) does not overlap application         content
+     * Sets up window insets so that system UI (status bar, navigation bar) does not overlap application's content
      */
     private void setupWindowInsets() {
         // Listener gets called when the status bar or bottom navigation bar is detected
@@ -142,13 +140,13 @@ public class BottomNavHostActivity extends AppCompatActivity {
      */
     private void setupBottomNavigation() {
         // Setup Bottom Navigation View
-        BottomNavigationView navView = findViewById(R.id.bottomNavigationView);
+        BottomNavigationView navView = findViewById(R.id.bottom_navigation_view);
 
         // Passing each menu ID as a set of Ids because each menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_map, R.id.navigation_list, R.id.navigation_bookmarks, R.id.navigation_settings)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.navHostFragment);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         // NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController);
     }
