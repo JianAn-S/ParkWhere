@@ -4,17 +4,23 @@
 ## Features
 
 ### Adaptive Icon
-<img src="public/Adaptive%20Icon.gif" alt="Adaptive Icon Showcase" width="250">
+<p align="center">
+   <img src="public/Adaptive%20Icon.gif" alt="Adaptive Icon Showcase" width="250">
+</p>
 
 - Adapts to the user's system theme and wallpaper, adjusting its color to seamlessly match the device's aesthetic changes colour
 - The shape of the icon can also change across different device models
 
 ### Interactive Map
-<a href="public/Interactive%20Map.mp4">
-  <img src="public/Interactive%20Map.png" alt="Interactive Map Showcase" width="250">
-</a>
+<p align="center">
+   <a href="public/Interactive%20Map.mp4" target="_blank">
+     <img src="public/Interactive%20Map.png" alt="Interactive Map Showcase" width="250">
+   </a>
+</p>
 
-<em>Tap the image to see the Interactive Map in action.</em>
+<p align="center">
+   <em>Tap the image to see the Interactive Map in action</em>
+</p>
 
 - Displays nearby car parks on Google Maps
 - Circle centered on user's current location
@@ -26,31 +32,43 @@
 	- 🔴 More than 90% full
 
 ### Car Park List
-<a href="public/Car%20Park%20List.mp4">
-  <img src="public/Car%20Park%20List.png" alt="Car Park List Showcase" width="250">
-</a>
+<p align="center">
+   <a href="public/Car%20Park%20List.mp4" target="_blank">
+     <img src="public/Car%20Park%20List.png" alt="Car Park List Showcase" width="250">
+   </a>
+</p>
 
-<em>Tap the image to see the Car Park List in action.</em>
+<p align="center">
+   <em>Tap the image to see the Car Park List in action</em>
+</p>
 
 - Lists nearby car parks sorted by nearest to furthest
 - Quick access to live parking lot details and last updated timestamp
 - Location search bar for place or address lookup
 
 ### Bookmarks
-<a href="public/Bookmark.mp4">
-  <img src="public/Bookmark.png" alt="Bookmarks Showcase" width="250">
-</a>
+<p align="center">
+   <a href="public/Bookmark.mp4" target="_blank">
+     <img src="public/Bookmark.png" alt="Bookmarks Showcase" width="250">
+   </a>
+</p>
 
-<em>Tap the image to see the Bookmarks page in action.</em>
+<p align="center">
+   <em>Tap the image to see the Bookmarks page in action</em>
+</p>
 
 - Save frequently used car parks for easy future access
 
 ### Settings
-<a href="public/Settings.mp4">
-  <img src="public/Settings.png" alt="Settings Showcase" width="250">
-</a>
+<p align="center">
+   <a href="public/Settings.mp4" target="_blank">
+     <img src="public/Settings.png" alt="Settings Showcase" width="250">
+   </a>
+</p>
 
-<em>Tap the image to see the Settings page in action.</em>
+<p align="center">
+   <em>Tap the image to see the Settings page in action</em>
+</p>
 
 - Vehicle Type Filter: View parking lots for Car, Motorcycle or both (default)
 - Application Appearance: Light, Dark or Sytem (default)
