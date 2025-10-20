@@ -27,7 +27,7 @@
 - Adjustable search radius for parking lots
 - Location search bar for place or address lookup
 - Color-coded markers indicating availability 
-	- 🟢 Equal or lesser than 70% full
+	- 🟢 Less than or equal to 70% full
 	- 🟡 71 - 90% full
 	- 🔴 More than 90% full
 
