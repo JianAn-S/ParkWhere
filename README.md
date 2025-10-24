@@ -13,13 +13,7 @@
 
 ### Interactive Map
 <p align="center">
-   <a href="public/Interactive%20Map.mp4" target="_blank">
-     <img src="public/Interactive%20Map.png" alt="Interactive Map Showcase" width="250">
-   </a>
-</p>
-
-<p align="center">
-   <em>Tap the image to see the Interactive Map in action</em>
+   <img src="public/Interactive%20Map.gif" alt="Interactive Map Showcase" width="250">
 </p>
 
 - Displays nearby car parks on Google Maps
@@ -33,41 +27,23 @@
 
 ### Car Park List
 <p align="center">
-   <a href="public/Car%20Park%20List.mp4" target="_blank">
-     <img src="public/Car%20Park%20List.png" alt="Car Park List Showcase" width="250">
-   </a>
+   <img src="public/Car%20Park%20List.gif" alt="Car Park List Showcase" width="250">
 </p>
 
-<p align="center">
-   <em>Tap the image to see the Car Park List in action</em>
-</p>
-
-- Lists nearby car parks sorted by nearest to furthest
+- Lists nearby car parks
 - Quick access to live parking lot details and last updated timestamp
 - Location search bar for place or address lookup
 
 ### Bookmarks
 <p align="center">
-   <a href="public/Bookmark.mp4" target="_blank">
-     <img src="public/Bookmark.png" alt="Bookmarks Showcase" width="250">
-   </a>
-</p>
-
-<p align="center">
-   <em>Tap the image to see the Bookmarks page in action</em>
+   <img src="public/Bookmark.gif" alt="Bookmarks Showcase" width="250">
 </p>
 
 - Save frequently used car parks for easy future access
 
 ### Settings
 <p align="center">
-   <a href="public/Settings.mp4" target="_blank">
-     <img src="public/Settings.png" alt="Settings Showcase" width="250">
-   </a>
-</p>
-
-<p align="center">
-   <em>Tap the image to see the Settings page in action</em>
+   <img src="public/Settings.gif" alt="Settings Showcase" width="250">
 </p>
 
 - Vehicle Type Filter: View parking lots for Car, Motorcycle or both (default)
